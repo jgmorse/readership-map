@@ -84,11 +84,17 @@ function scrape($url = NULL) {
     return $urls[$url] = NULL;
   }
 
+  $favicon = qp($qp, "link[@rel='icon'|@rel='shortcut icon']")->attr('href');
+  if ($favicon->length > 0) {
+    $ret[] = $favicon;
+  }
+
   $ret = [
     'citation_title' => $ret[0],
     'citation_author' => $ret[1],
     'citation_url' => $ret[2],
     'access' => $ret[3],
+    'favicon' => $ret[4],
   ];
 
   return $urls[$url] = $ret;
